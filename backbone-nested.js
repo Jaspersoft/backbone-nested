@@ -176,8 +176,13 @@
       var trigger = !opts.silent && (val.length >= i + 1),
         oldEl = val[i];
 
-      // remove the element from the array
-      val.splice(i, 1);
+      // remove the element from the array, if sparseRemove option is true, index of elements remains static.
+      if (opts.sparseRemove) { 
+        val[i] = undefined;
+      } else {
+        val.splice(i, 1);
+      }
+      
       opts.silent = true; // Triggers should only be fired in trigger section below
       this.set(aryPath, val, opts);
 
